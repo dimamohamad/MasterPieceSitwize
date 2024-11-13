@@ -366,16 +366,15 @@ namespace MasterPiece.Controllers
                 return HttpNotFound();
             }
 
-            // Check if the sitter has any active bookings
+            
             var hasBookings = db.Bookings.Any(b => b.SitterID == id);
             if (hasBookings)
             {
-                // Set an error message in TempData to show in the view
+                
                 TempData["ErrorMessage"] = "This sitter cannot be deleted because they have active bookings.";
                 return RedirectToAction("GetAllSitters");
             }
 
-            // If no active bookings, proceed with deletion
             db.Sitters.Remove(sitter);
             db.SaveChanges();
 

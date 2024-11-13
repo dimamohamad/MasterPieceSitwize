@@ -124,7 +124,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="daysTime" class="form-label">Days and time</label>
-                    <div>
+                    @*<div>
                         <p class="mb-1">Weekdays (Sunday-Thursday):</p>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="morning" name="Weekdaysmorning">
@@ -142,18 +142,51 @@
                             <input class="form-check-input" type="checkbox" id="evening" name="Weekdaysevening">
                             <label class="form-check-label" for="evening">Evening</label>
                         </div>
+                    </div>*@
+                    <div>
+                        <p class="mb-1">Weekdays (Sunday-Thursday):</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="morning" name="Weekdays" value="morning">
+                            <label class="form-check-label" for="morning">Morning (before school)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="daytime" name="Weekdays" value="daytime">
+                            <label class="form-check-label" for="daytime">Daytime</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="afternoon" name="Weekdays" value="afternoon">
+                            <label class="form-check-label" for="afternoon">Afternoon (after school)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="evening" name="Weekdays" value="evening">
+                            <label class="form-check-label" for="evening">Evening</label>
+                        </div>
                     </div>
+
+                    @*<div>
+            <p class="mt-2 mb-1">Weekends (Friday, Saturday):</p>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="weekendDaytime" name="weekendDaytime">
+                <label class="form-check-label" for="weekendDaytime">Daytime</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="weekendEvening" name="weekendEvening">
+                <label class="form-check-label" for="weekendEvening">Evening</label>
+            </div>
+        </div>*@
                     <div>
                         <p class="mt-2 mb-1">Weekends (Friday, Saturday):</p>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="weekendDaytime" name="weekendDaytime">
+                            <input class="form-check-input" type="radio" id="weekendDaytime" name="weekendTime" value="daytime">
                             <label class="form-check-label" for="weekendDaytime">Daytime</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="weekendEvening" name="weekendEvening">
+                            <input class="form-check-input" type="radio" id="weekendEvening" name="weekendTime" value="evening">
                             <label class="form-check-label" for="weekendEvening">Evening</label>
                         </div>
                     </div>
+
+
                 </div>
                 @*<div class="mb-3">
                     <label for="duration" class="form-label">Duration</label>

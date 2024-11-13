@@ -45,6 +45,20 @@ namespace MasterPiece.Controllers
         //    }
         //    return View(user);
         //}
+        private bool IsValidPassword(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                return false;
+
+            if (password.Length < 8)
+                return false;
+
+            var hasUpperCase = password.Any(char.IsUpper);
+            var hasNumber = password.Any(char.IsDigit);
+            var hasSpecialChar = password.Any(ch => "!@#$%^&*()_-+=<>?/|~`.,".Contains(ch));
+
+            return hasUpperCase && hasNumber && hasSpecialChar;
+        }
 
 
         [HttpPost]
@@ -58,6 +72,10 @@ namespace MasterPiece.Controllers
                     // If email exists, trigger a SweetAlert error and return the view
                     ViewBag.ShowEmailExistsAlert = true;
                     return View(user);
+                }
+                if (!IsValidPassword(user.PasswordHash))
+                {
+                    ModelState.AddModelError("PasswordHash", "Password must be at least 8 characters long, contain at least one uppercase letter, one special character (e.g., @), and one number.");
                 }
 
                 if (user.PasswordHash != confirmPassword)

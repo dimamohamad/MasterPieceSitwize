@@ -420,15 +420,25 @@ namespace MasterPiece.Controllers
              string startTime = form["startTime"];
             string endTime = form["endTime"];
             string duration = form["duration"];
+            //string daysTime = string.Join(", ", new List<string>
+            //{
+            //    form["Weekdaysmorning"] == "on" ? "Weekdays Morning" : null,
+            //    form["Weekdaysdaytime"] == "on" ? "Weekdays Daytime" : null,
+            //    form["Weekdaysafternoon"] == "on" ? "Weekdays Afternoon" : null,
+            //    form["Weekdaysevening"] == "on" ? "Weekdays Evening" : null,
+            //    form["weekendDaytime"] == "on" ? "Weekend Daytime" : null,
+            //    form["weekendEvening"] == "on" ? "Weekend Evening" : null
+            //}.Where(s => !string.IsNullOrEmpty(s)));
+
             string daysTime = string.Join(", ", new List<string>
-            {
-                form["Weekdaysmorning"] == "on" ? "Weekdays Morning" : null,
-                form["Weekdaysdaytime"] == "on" ? "Weekdays Daytime" : null,
-                form["Weekdaysafternoon"] == "on" ? "Weekdays Afternoon" : null,
-                form["Weekdaysevening"] == "on" ? "Weekdays Evening" : null,
-                form["weekendDaytime"] == "on" ? "Weekend Daytime" : null,
-                form["weekendEvening"] == "on" ? "Weekend Evening" : null
-            }.Where(s => !string.IsNullOrEmpty(s)));
+{
+    form["Weekdays"] == "morning" ? "Weekdays Morning" : null,
+    form["Weekdays"] == "daytime" ? "Weekdays Daytime" : null,
+    form["Weekdays"] == "afternoon" ? "Weekdays Afternoon" : null,
+    form["Weekdays"] == "evening" ? "Weekdays Evening" : null,
+    form["weekendTime"] == "daytime" ? "Weekend Daytime" : null,
+    form["weekendTime"] == "evening" ? "Weekend Evening" : null
+}.Where(s => !string.IsNullOrEmpty(s)));
 
             //string duration = form["duration"];
             var serviceDetail = new ServiceDetail

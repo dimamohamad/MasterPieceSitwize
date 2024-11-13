@@ -76,6 +76,12 @@
     </div>
     <div class="card mx-auto" style="max-width: 800px;">
         <div class="card-body">
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
             @using (Html.BeginForm("JoinUs", "Home", FormMethod.Post, new { id = "joinUsForm", enctype = "multipart/form-data", novalidate = "novalidate" }))
             {
                 @Html.AntiForgeryToken()
@@ -217,36 +223,36 @@
                     @Html.ValidationMessageFor(m => m.CurrentWork, "", new { @class = "invalid-feedback" })
                 </div>
                 @*<div class="mb-3">
-                        <label class="form-label">Experience</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Newborn" id="newborn">
-                            <label class="form-check-label" for="newborn">Newborn</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Under 5 years" id="under5">
-                            <label class="form-check-label" for="under5">Under 5 years</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Over 5 years" id="over5">
-                            <label class="form-check-label" for="over5">Over 5 years</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Twins / Multiples" id="twinsMultiples">
-                            <label class="form-check-label" for="twinsMultiples">Twins / Multiples</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Special needs" id="specialNeeds">
-                            <label class="form-check-label" for="specialNeeds">Special needs</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Learning disabilities" id="learningDisabilities">
-                            <label class="form-check-label" for="learningDisabilities">Learning disabilities</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Behavioral difficulties" id="behavioralDifficulties">
-                            <label class="form-check-label" for="behavioralDifficulties">Behavioral difficulties</label>
-                        </div>
-                    </div>*@
+                <label class="form-label">Experience</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Newborn" id="newborn">
+                    <label class="form-check-label" for="newborn">Newborn</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Under 5 years" id="under5">
+                    <label class="form-check-label" for="under5">Under 5 years</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Over 5 years" id="over5">
+                    <label class="form-check-label" for="over5">Over 5 years</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Twins / Multiples" id="twinsMultiples">
+                    <label class="form-check-label" for="twinsMultiples">Twins / Multiples</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Special needs" id="specialNeeds">
+                    <label class="form-check-label" for="specialNeeds">Special needs</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Learning disabilities" id="learningDisabilities">
+                    <label class="form-check-label" for="learningDisabilities">Learning disabilities</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="ExperienceTypes" value="Behavioral difficulties" id="behavioralDifficulties">
+                    <label class="form-check-label" for="behavioralDifficulties">Behavioral difficulties</label>
+                </div>
+            </div>*@
                 <div class="mb-3">
                     <label class="form-label">Experience</label>
                     <div class="form-check">
