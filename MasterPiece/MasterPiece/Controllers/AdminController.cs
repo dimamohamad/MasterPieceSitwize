@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using MasterPiece.Models;
@@ -555,11 +556,79 @@ namespace MasterPiece.Controllers
             return View(sitter);
         }
 
-        // POST: Admin/SitterEdit/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult SitterEdit([Bind(Include = "SitterID,FirstName,LastName,sitterImage,Email,PhoneNumber,Bio,ExperienceYears,IsAvailable,IsApproved,HourlyRate,LicensePath")] Sitter sitter)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (!sitter.ExperienceYears.HasValue)
+        //        {
+        //            ModelState.AddModelError("ExperienceYears", "Experience years is required.");
+        //            TempData["swalMessage"] = "error|Experience years is required.";
+        //            return View(sitter);
+        //        }
+
+        //        if (!sitter.HourlyRate.HasValue)
+        //        {
+        //            ModelState.AddModelError("HourlyRate", "Hourly rate is required.");
+        //            TempData["swalMessage"] = "error|Hourly rate is required.";
+        //            return View(sitter);
+        //        }
+
+        //        if (!IsHourlyRateValid(sitter.ExperienceYears.Value, sitter.HourlyRate.Value, out string errorMessage))
+        //        {
+        //            ModelState.AddModelError("HourlyRate", errorMessage);
+        //            TempData["swalMessage"] = $"error|{errorMessage}";
+        //            return View(sitter);
+        //        }
+
+        //        try
+        //        {
+        //            db.Entry(sitter).State = EntityState.Modified;
+        //            db.SaveChanges();
+        //            TempData["swalMessage"] = $"success|Sitter {sitter.FirstName} {sitter.LastName} has been updated successfully!";
+        //            return RedirectToAction("GetAllSitters");
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ModelState.AddModelError("", $"An error occurred while saving changes: {ex.Message}");
+        //            TempData["swalMessage"] = $"error|An error occurred while saving changes: {ex.Message}";
+        //            return View(sitter);
+        //        }
+        //    }
+
+        //    // In case of validation errors
+        //    TempData["swalMessage"] = "error|Please correct the validation errors.";
+        //    return View(sitter);
+        //}
+
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SitterEdit([Bind(Include = "SitterID,FirstName,LastName,sitterImage,Email,PhoneNumber,Bio,ExperienceYears,IsAvailable,IsApproved,HourlyRate,LicensePath")] Sitter sitter)
+        public ActionResult SitterEdit([Bind(Include = "SitterID,FirstName,LastName,PasswordHash,sitterImage,Email,PhoneNumber,Bio,ExperienceYears,IsAvailable,IsApproved,HourlyRate,LicensePath")] Sitter sitter, HttpPostedFileBase LicenseUpload)
         {
+
+
+            Sitter existingSitter = db.Sitters.Find(sitter.SitterID);
+
+            if (existingSitter == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (string.IsNullOrEmpty(sitter.PasswordHash))
+            {
+                sitter.PasswordHash = existingSitter.PasswordHash; 
+            }
+
+            if (string.IsNullOrEmpty(sitter.LicensePath))
+            {
+                sitter.LicensePath = existingSitter.LicensePath; 
+            }
+
             if (ModelState.IsValid)
             {
                 if (!sitter.ExperienceYears.HasValue)
@@ -583,9 +652,52 @@ namespace MasterPiece.Controllers
                     return View(sitter);
                 }
 
+                if (LicenseUpload != null && LicenseUpload.ContentLength > 0)
+                {
+                    // Check file extension
+                    var allowedExtensions = new[] { ".pdf", ".doc", ".docx" };
+                    var fileExtension = Path.GetExtension(LicenseUpload.FileName).ToLower();
+
+                    if (!allowedExtensions.Contains(fileExtension))
+                    {
+                        ModelState.AddModelError("LicenseUpload", "Only PDF, DOC, and DOCX files are allowed.");
+                        TempData["swalMessage"] = "error|Only PDF, DOC, and DOCX files are allowed.";
+                        return View(sitter);
+                    }
+
+                    // Generate the file name and save it in the "Uploads/Licenses" folder
+                    var fileName = Path.GetFileName(LicenseUpload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Uploads/Licenses"), fileName);
+
+                    // Save the file to the server
+                    LicenseUpload.SaveAs(path);
+
+                    // Store the relative path in the LicensePath
+                    sitter.LicensePath = "/Uploads/Licenses/" + fileName;
+                    // Update the model's LicensePath with the relative file path
+                  
+
+                }
+                // Update the properties of existingSitter with the new values
+                existingSitter.FirstName = sitter.FirstName;
+                existingSitter.LastName = sitter.LastName;
+                existingSitter.Email = sitter.Email;
+                existingSitter.PhoneNumber = sitter.PhoneNumber;
+                existingSitter.Bio = sitter.Bio;
+                existingSitter.ExperienceYears = sitter.ExperienceYears;
+                existingSitter.IsAvailable = sitter.IsAvailable;
+                existingSitter.IsApproved = sitter.IsApproved;
+                existingSitter.HourlyRate = sitter.HourlyRate;
+                existingSitter.sitterImage = sitter.sitterImage; // Assuming image was updated
+
+                // Only update LicensePath if it was modified
+                if (!string.IsNullOrEmpty(sitter.LicensePath))
+                {
+                    existingSitter.LicensePath = sitter.LicensePath;
+                }
                 try
                 {
-                    db.Entry(sitter).State = EntityState.Modified;
+                    //db.Entry(sitter).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["swalMessage"] = $"success|Sitter {sitter.FirstName} {sitter.LastName} has been updated successfully!";
                     return RedirectToAction("GetAllSitters");
@@ -630,7 +742,7 @@ namespace MasterPiece.Controllers
 
             if (hourlyRate < minRate || hourlyRate > maxRate)
             {
-                errorMessage = $"Hourly rate should be between {minRate:C} and {maxRate:C} based on your experience.";
+                errorMessage = $"Hourly rate should be between {minRate:N2} JOD and {maxRate:N2} JOD based on your experience.";
                 return false;
             }
 
@@ -784,7 +896,7 @@ namespace MasterPiece.Controllers
 
                 if (model.HourlyRate < minRate || model.HourlyRate > maxRate)
                 {
-                    TempData["ErrorMessage"] = $"Hourly rate should be between {minRate:C} and {maxRate:C} based on your experience.";
+                    TempData["ErrorMessage"] = $"Hourly rate should be between JOD {minRate:N2} and JOD {maxRate:N2} based on your experience.";
                     return View(model);
                 }
                 if (model.LicenseUpload != null && model.LicenseUpload.ContentLength > 0)
@@ -1291,8 +1403,15 @@ namespace MasterPiece.Controllers
             try
             {
                 Booking booking = db.Bookings.Find(id);
+
+               
                 if (booking != null)
                 {
+                    
+            // Remove related payments
+            var relatedPayments = db.Payments.Where(p => p.BookingID == id).ToList();
+            db.Payments.RemoveRange(relatedPayments);
+
                     db.Bookings.Remove(booking);
                     db.SaveChanges();
                     return Json(new { success = true, message = "Booking deleted successfully." });

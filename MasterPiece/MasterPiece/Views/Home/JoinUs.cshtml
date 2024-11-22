@@ -212,7 +212,7 @@
                 </div>
 
                 <div class="mb-3">
-                    @Html.LabelFor(m => m.HourlyRate, "Hourly Rate (USD)", new { @class = "form-label" })
+                    @Html.LabelFor(m => m.HourlyRate, "Hourly Rate (JOD)", new { @class = "form-label" })
                     @Html.TextBoxFor(m => m.HourlyRate, new { @class = "form-control", @type = "number", step = "0.01", @required = "required", @min = "5", @max = "20" })
                     <span class="text-danger"></span>
                     @Html.ValidationMessageFor(m => m.HourlyRate, "", new { @class = "text-danger" })
@@ -688,11 +688,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         hourlyRateInput.setAttribute('min', ranges.minRate);
         hourlyRateInput.setAttribute('max', ranges.maxRate);
-        hourlyRateInput.placeholder = `Rate between $${ranges.minRate} - $${ranges.maxRate}`;
+        hourlyRateInput.placeholder = `Rate between ${ranges.minRate}JOD - ${ranges.maxRate}JOD`;
 
         if (isNaN(hourlyRate) || hourlyRate < ranges.minRate || hourlyRate > ranges.maxRate) {
             hourlyRateInput.classList.add('is-invalid');
-            hourlyRateError.textContent = `Please enter a rate between $${ranges.minRate} and $${ranges.maxRate}.`;
+            hourlyRateError.textContent = `Please enter a rate between ${ranges.minRate}JOD and ${ranges.maxRate}JOD.`;
             return {
                 isValid: false,
                 minRate: ranges.minRate,
@@ -762,7 +762,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Check hourly rate and add to error messages if invalid
         if (!hourlyRateValidation.isValid) {
-            errorMessages.push(`Hourly rate must be between $${hourlyRateValidation.minRate} and $${hourlyRateValidation.maxRate} based on your experience.`);
+            errorMessages.push(`Hourly rate must be between ${hourlyRateValidation.minRate}JOD and ${hourlyRateValidation.maxRate}JOD based on your experience.`);
         }
 
         if (!allValid) {
@@ -789,9 +789,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         Swal.fire({
             title: 'Confirm Your Hourly Rate',
-            html: `You have entered an hourly rate of <strong>$${hourlyRate.toFixed(2)}</strong>.<br>
+            html: `You have entered an hourly rate of <strong>${hourlyRate.toFixed(2)} JOD</strong>.<br>
                     After joining our team, <strong>25% tax</strong> will be deducted.<br>
-                    Your effective hourly rate will be <strong>$${finalRate.toFixed(2)}</strong>.<br>
+                    Your effective hourly rate will be <strong>${finalRate.toFixed(2)} JOD</strong>.<br>
                     Do you agree?`,
             icon: 'warning',
             showCancelButton: true,

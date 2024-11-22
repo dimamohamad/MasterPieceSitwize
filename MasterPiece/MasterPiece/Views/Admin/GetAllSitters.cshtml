@@ -327,7 +327,7 @@
                         <th scope="col">@Html.DisplayNameFor(model => model.ExperienceYears)</th>
                         <th scope="col">@Html.DisplayNameFor(model => model.HourlyRate)</th>
                         <th scope="col">@Html.DisplayNameFor(model => model.LicensePath)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                        @*<th scope="col">@Html.DisplayNameFor(model => model.CreatedAt)</th>*@
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -362,7 +362,7 @@
                                     </a>
                                 }
                             </td>
-                            <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                            @*<td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>*@
                             <td>
                                 <a href="@Url.Action("SitterDetails", new { id = item.SitterID })" class="btn btn-sm btn-dark">Details</a>
                                 <a href="@Url.Action("SitterEdit", new { id = item.SitterID })" class="btn btn-sm btn-primary">Edit</a>

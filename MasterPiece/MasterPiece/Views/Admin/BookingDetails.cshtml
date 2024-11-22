@@ -52,7 +52,7 @@
                 }
             </div>
             <div>
-                <strong>Start Time:</strong>
+                <strong>End Time:</strong>
                 @if (Model.ServiceDetail?.EndTime.HasValue == true)
                 {
                     DateTime timeOfDay = DateTime.Today.Add(Model.ServiceDetail.EndTime.Value);

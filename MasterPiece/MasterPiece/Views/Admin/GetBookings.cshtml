@@ -39,13 +39,13 @@
                             <td>@item.BookingDate</td>
                             <td>@(item.ServiceDetail?.StartDate.HasValue == true ? item.ServiceDetail.StartDate.Value.ToString("MM/dd/yyyy") : "N/A")</td>
                             <td>@item.Status</td>
-                            <td>@string.Format("{0:C}", item.TotalAmount)</td>
+                            <td>@string.Format("{0:N2} JOD", item.TotalAmount)</td>
                             <td>
                                 <a href="@Url.Action("EditBooking", new { id = item.BookingID })" class="btn btn-sm btn-primary">Edit</a>
 
                                 <a href="@Url.Action("BookingDetails", new { id = item.BookingID })" class="btn btn-sm btn-dark">Details</a>
                                 <a href="javascript:void(0);"
-                                   onclick="confirmDelete(@item.BookingID, '@item.User.FirstName', '@item.Sitter.FirstName', '@item.Service.ServiceName', '@(item.BookingDate.HasValue ? item.BookingDate.Value.ToString("MM/dd/yyyy") : "N/A")', '@(item.ServiceDetail?.StartDate.HasValue == true ? item.ServiceDetail.StartDate.Value.ToString("MM/dd/yyyy") : "N/A")', '@item.Status', '@string.Format("{0:C}", item.TotalAmount)')"
+                                   onclick="confirmDelete(@item.BookingID, '@item.User.FirstName', '@item.Sitter.FirstName', '@item.Service.ServiceName', '@(item.BookingDate.HasValue ? item.BookingDate.Value.ToString("MM/dd/yyyy") : "N/A")', '@(item.ServiceDetail?.StartDate.HasValue == true ? item.ServiceDetail.StartDate.Value.ToString("MM/dd/yyyy") : "N/A")', '@item.Status', '@string.Format("{0:N2} JOD", item.TotalAmount)')"
                                    class="btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>

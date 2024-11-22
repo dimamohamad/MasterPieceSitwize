@@ -57,7 +57,7 @@
                             <p class="card-text">
                                 <strong>Service:</strong> @booking.Service.ServiceName<br>
                                 <strong>Booking Date:</strong> @(booking.BookingDate?.ToString("MM/dd/yyyy HH:mm") ?? "N/A")<br>
-                                <strong>Payment Status:</strong> <span class="badge bg-info"> @(booking.Payments.FirstOrDefault()?.Status ?? "N/A")</span><br>
+                                @*<strong>Payment Status:</strong> <span class="badge bg-info"> @(booking.Payments.FirstOrDefault()?.Status ?? "N/A")</span><br>*@
                                 <strong>Booking Status:</strong> <span class="badge bg-info"> @booking.Status</span><br>
                                 <strong>Sitter Name:</strong> @booking.Sitter.FirstName @booking.Sitter.LastName<br>
                                 <strong>Start Date:</strong> @(booking.ServiceDetail.StartDate?.ToString("MM/dd/yyyy") ?? "N/A")<br>

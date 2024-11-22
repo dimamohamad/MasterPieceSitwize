@@ -143,3 +143,68 @@
         }
     }
 </script>
+
+
+<script>
+    document.querySelector('form').addEventListener('submit', function (event) {
+        let isValid = true;
+
+        const dateNeeded = document.getElementById('dateNeeded');
+        const startTime = document.getElementById('startTime');
+        const endTime = document.getElementById('endTime');
+        const reason = document.getElementById('reason');
+        const durationField = document.getElementById('duration');
+
+        // Clear previous validation messages
+        document.querySelectorAll('.error-message').forEach(msg => msg.remove());
+
+        // Validate Date Needed
+        if (!dateNeeded.value) {
+            showError(dateNeeded, 'Date needed is required.');
+            isValid = false;
+        }
+
+        // Validate Start Time
+        if (!startTime.value) {
+            showError(startTime, 'Start time is required.');
+            isValid = false;
+        }
+
+        // Validate End Time
+        if (!endTime.value) {
+            showError(endTime, 'End time is required.');
+            isValid = false;
+        } else if (startTime.value && endTime.value) {
+            const start = new Date('1970-01-01T' + startTime.value + 'Z');
+            const end = new Date('1970-01-01T' + endTime.value + 'Z');
+
+            if (start >= end) {
+                showError(endTime, 'End time must be after start time.');
+                isValid = false;
+            }
+        }
+
+        // Validate Duration
+        if (!durationField.value) {
+            showError(durationField, 'Duration is required and will be calculated automatically.');
+            isValid = false;
+        }
+
+        // Validate Reason
+        if (!reason.value) {
+            showError(reason, 'Please select a reason for needing care.');
+            isValid = false;
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+
+    function showError(element, message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message text-danger mt-1';
+        errorDiv.textContent = message;
+        element.parentNode.appendChild(errorDiv);
+    }
+</script>

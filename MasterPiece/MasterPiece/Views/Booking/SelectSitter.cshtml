@@ -143,7 +143,7 @@
                                         <p class="card-text">@sitter.ExperienceYears years paid experience</p>
                                         <p class="card-text">
                                             <strong>Price per Hour:</strong>
-                                           $@sitter.HourlyRate
+                                           @sitter.HourlyRate
                                         </p>
 
                                         <p class="card-text">@sitter.Bio </p>
@@ -427,11 +427,11 @@
                         <label for="HourlyRateRange">Hourly Rate</label>
                         <select id="HourlyRateRange" name="HourlyRateRange" class="form-control">
                             <option value="">Any</option>
-                            <option value="3-5">$3 - $5</option>
-                            <option value="5-7">$5 - $7</option>
-                            <option value="7-10">$7 - $10</option>
-                            <option value="10-15">$10 - $15</option>
-                            <option value="15+">$15+</option>
+                            <option value="3-5">3 JOD - 5 JOD</option>
+                            <option value="5-7">5 JOD - 7 JOD</option>
+                            <option value="7-10">7 JOD - 10 JOD</option>
+                            <option value="10-15">10 JOD - 15 JOD</option>
+                            <option value="15+">15+ JOD</option>
                         </select>
                     </div>
 
@@ -463,7 +463,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">@sitter.FirstName @sitter.LastName</h5>
                                     <p class="card-text"><strong>Experience Years:</strong>@sitter.ExperienceYears years paid experience</p>
-                                    <p class="card-text"><strong>Price per Hour:</strong> $@sitter.HourlyRate</p>
+                                    <p class="card-text"><strong>Price per Hour:</strong> @sitter.HourlyRate JOD</p>
                                     <p class="card-text"><strong>Bio:</strong>@sitter.Bio</p>
 
 
@@ -583,7 +583,7 @@
                             '<div class="card-body">' +
                             '<h5 class="card-title">' + sitter.FirstName + ' ' + sitter.LastName + '</h5>' +
                             '<p class="card-text"><strong>Experience Years:</strong> ' + sitter.ExperienceYears + ' years paid experience</p>' +
-                            '<p class="card-text"><strong>Price per Hour:</strong> $' + sitter.HourlyRate + '</p>' +
+                            '<p class="card-text"><strong>Price per Hour:</strong> JOD' + sitter.HourlyRate + '</p>' +
                             '<p class="card-text"><strong>Bio:</strong> ' + sitter.Bio + '</p>' +
                             '<p class="card-text"><strong>Special Needs License:</strong> ' + (sitter.HasSpecialNeedsLicense ? 'Yes' : 'No') + '</p>';
 

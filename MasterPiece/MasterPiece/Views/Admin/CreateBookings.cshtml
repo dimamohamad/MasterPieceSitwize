@@ -291,6 +291,7 @@
         margin-left: 150px;
     }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     let currentHourlyRate = 0;
@@ -349,4 +350,34 @@
     // Add event listeners
     document.getElementById('startTime').addEventListener('change', calculateDuration);
     document.getElementById('endTime').addEventListener('change', calculateDuration);
+
+
+    // Form validation before submission
+    document.querySelector('form').addEventListener('submit', function (event) {
+        const userId = document.getElementById('UserID').value;
+        const sitterId = document.getElementById('SitterID').value;
+        const serviceId = document.getElementById('ServiceID').value;
+        const startDate = document.getElementById('startDate').value;
+        const startTime = document.getElementById('startTime').value;
+        const endTime = document.getElementById('endTime').value;
+
+        let errorMessages = [];
+
+        if (!userId) errorMessages.push("User must be selected.");
+        if (!sitterId) errorMessages.push("Sitter must be selected.");
+        if (!serviceId) errorMessages.push("Service must be selected.");
+        if (!startDate) errorMessages.push("Start date cannot be empty.");
+        if (!startTime) errorMessages.push("Start time cannot be empty.");
+        if (!endTime) errorMessages.push("End time cannot be empty.");
+
+        if (errorMessages.length > 0) {
+            event.preventDefault(); // Prevent form submission
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                html: errorMessages.join('<br>'), // Display errors
+            });
+        }
+    });
+
 </script>

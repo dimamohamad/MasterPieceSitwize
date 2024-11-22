@@ -102,73 +102,99 @@
         <h1>Edit Sitter</h1>
         <br />
 
-        @using (Html.BeginForm())
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.SitterID)
 
-            <div class="sitter-edit">
-                <div>
-                    <strong>@Html.LabelFor(model => model.FirstName):</strong>
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                </div>
+    <div class="sitter-edit">
+        <div>
+            <strong>@Html.LabelFor(model => model.FirstName):</strong>
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
 
-                <div>
-                    <strong>@Html.LabelFor(model => model.LastName):</strong>
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                </div>
+        <div>
+            <strong>@Html.LabelFor(model => model.LastName):</strong>
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
 
-                <div>
-                    <strong>@Html.LabelFor(model => model.Email):</strong>
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
+        <div>
+            <strong>@Html.LabelFor(model => model.Email):</strong>
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
 
-                <div>
-                    <strong>@Html.LabelFor(model => model.PhoneNumber):</strong>
-                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                </div>
+        <div>
+            <strong>@Html.LabelFor(model => model.PhoneNumber):</strong>
+            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
 
-                <div>
-                    <strong>@Html.LabelFor(model => model.Bio):</strong>
-                    @Html.TextAreaFor(model => model.Bio, new { @class = "form-control", rows = 3 })
-                    @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
-                </div>
+        <div>
+            <strong>@Html.LabelFor(model => model.Bio):</strong>
+            @Html.TextAreaFor(model => model.Bio, new { @class = "form-control", rows = 3 })
+            @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
+        </div>
 
-                <div>
-                    <strong>@Html.LabelFor(model => model.ExperienceYears):</strong>
-                    @Html.EditorFor(model => model.ExperienceYears, new { htmlAttributes = new { @class = "form-control", id = "experienceYears" } })
-                    @Html.ValidationMessageFor(model => model.ExperienceYears, "", new { @class = "text-danger" })
-                </div>
+        <div>
+            <strong>@Html.LabelFor(model => model.ExperienceYears):</strong>
+            @Html.EditorFor(model => model.ExperienceYears, new { htmlAttributes = new { @class = "form-control", id = "experienceYears" } })
+            @Html.ValidationMessageFor(model => model.ExperienceYears, "", new { @class = "text-danger" })
+        </div>
 
-                <div>
-                    <strong>@Html.LabelFor(model => model.HourlyRate):</strong>
-                    @Html.EditorFor(model => model.HourlyRate, new { htmlAttributes = new { @class = "form-control", id = "hourlyRate" } })
-                    @Html.ValidationMessageFor(model => model.HourlyRate, "", new { @class = "text-danger" })
-                </div>
+        <div>
+            <strong>@Html.LabelFor(model => model.HourlyRate):</strong>
+            @Html.EditorFor(model => model.HourlyRate, new { htmlAttributes = new { @class = "form-control", id = "hourlyRate" } })
+            @Html.ValidationMessageFor(model => model.HourlyRate, "", new { @class = "text-danger" })
+        </div>
 
-                <div>
-                    <strong>@Html.LabelFor(model => model.LicensePath):</strong>
-                    @Html.EditorFor(model => model.LicensePath, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LicensePath, "", new { @class = "text-danger" })
-                </div>
+        @*<div>
+            <strong>@Html.LabelFor(model => model.LicensePath):</strong>
+            @Html.EditorFor(model => model.LicensePath, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LicensePath, "", new { @class = "text-danger" })
+        </div>*@
 
-                <div>
-                    <strong>@Html.LabelFor(model => model.IsAvailable):</strong>
-                    @Html.EditorFor(model => model.IsAvailable)
-                    @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
-                </div>
+        <div>
+            <strong>@Html.LabelFor(model => model.sitterImage):</strong>
 
+            @if (Model.sitterImage != null)
+            {
                 <div>
-                    <strong>@Html.LabelFor(model => model.IsApproved):</strong>
-                    @Html.EditorFor(model => model.IsApproved)
-                    @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                    <img src="~/Images/@Model.sitterImage" alt="Sitter Image" class="img-thumbnail" style="max-width: 200px;" />
                 </div>
-            </div>
+            }
+            else
+            {
+                <div>No image available</div>
+            }
+
+            <!-- Make the sitterImage readonly -->
+            @Html.HiddenFor(model => model.sitterImage)
+
+            @Html.ValidationMessageFor(model => model.sitterImage, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div>
+            <strong>@Html.LabelFor(model => model.LicensePath):</strong>
+            <input type="file" name="LicenseUpload" class="form-control" />
+            @Html.ValidationMessageFor(model => model.LicensePath, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            <strong>@Html.LabelFor(model => model.IsAvailable):</strong>
+            @Html.EditorFor(model => model.IsAvailable)
+            @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
+        </div>
+
+        <div>
+            <strong>@Html.LabelFor(model => model.IsApproved):</strong>
+            @Html.EditorFor(model => model.IsApproved)
+            @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
             <br />
             <div>

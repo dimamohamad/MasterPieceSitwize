@@ -202,7 +202,74 @@
         </div>
     </div>
 </div>
-<script>function calculateDuration() {
+<script>
+    document.querySelector('form').addEventListener('submit', function (event) {
+        let isValid = true;
+
+        const startDate = document.getElementById('startDate');
+        const startTime = document.getElementById('startTime');
+        const endTime = document.getElementById('endTime');
+        const durationField = document.getElementById('duration');
+        const additionalInfo = document.getElementById('AdditionalInfo');
+
+        // Clear previous validation messages
+        document.querySelectorAll('.error-message').forEach(msg => msg.remove());
+
+        // Validate Start Date
+        if (!startDate.value) {
+            showError(startDate, 'Start date is required.');
+            isValid = false;
+        }
+
+        // Validate Start Time
+        if (!startTime.value) {
+            showError(startTime, 'Start time is required.');
+            isValid = false;
+        }
+
+        // Validate End Time
+        if (!endTime.value) {
+            showError(endTime, 'End time is required.');
+            isValid = false;
+        } else if (startTime.value && endTime.value) {
+            const start = new Date('1970-01-01T' + startTime.value + 'Z');
+            const end = new Date('1970-01-01T' + endTime.value + 'Z');
+            if (start >= end) {
+                showError(endTime, 'End time must be after start time.');
+                isValid = false;
+            }
+        }
+
+        // Validate Duration
+        if (!durationField.value) {
+            showError(durationField, 'Duration is required and will be calculated automatically.');
+            isValid = false;
+        }
+
+        // Validate Additional Info (Optional, but can be added if needed)
+        if (!additionalInfo.value) {
+            showError(additionalInfo, 'Please provide additional information.');
+            isValid = false;
+        }
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+
+    function showError(element, message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message text-danger mt-1';
+        errorDiv.textContent = message;
+        element.parentNode.appendChild(errorDiv);
+    }
+
+
+
+
+
+    function calculateDuration() {
         const startTime = document.getElementById('startTime').value;
         const endTime = document.getElementById('endTime').value;
         const durationField = document.getElementById('duration');
@@ -225,3 +292,5 @@
             durationField.value = '';
         }
     }</script>
+
+
